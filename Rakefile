@@ -6,7 +6,7 @@ CONFIG = {
   'themes' => File.join(SOURCE, "_includes", "themes"),
   'layouts' => File.join(SOURCE, "_layouts"),
   'posts' => File.join(SOURCE, "_posts"),
-  'post_ext' => "md"
+  'post_ext' => "markdown"
 }
 
 # Usage: rake post title="A Title"
@@ -19,7 +19,7 @@ task :post do
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
-  
+
   puts "Creating new post: #{filename}"
   open(filename, 'w') do |post|
     post.puts "---"
@@ -37,14 +37,14 @@ end # task :post
 # If you don't specify a file extention we create an index.html at the path specified
 desc "Create a new page."
 task :page do
-  name = ENV["name"] || "new-page.md"
+  name = ENV["name"] || "new-page.markdown"
   filename = File.join(SOURCE, "#{name}")
   filename = File.join(filename, "index.html") if File.extname(filename) == ""
   title = File.basename(filename, File.extname(filename)).gsub(/[\W\_]/, " ").gsub(/\b\w/){$&.upcase}
   if File.exist?(filename)
     abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
   end
-  
+
   mkdir_p File.dirname(filename)
   puts "Creating new page: #{filename}"
   open(filename, 'w') do |post|
@@ -62,15 +62,15 @@ task :switch_theme do
   theme_path = File.join(CONFIG['themes'], theme_name)
   settings_file = File.join(theme_path, "settings.yml")
   non_layout_files = ["settings.yml"]
-  
+
   abort("rake aborted: name cannot be blank") if theme_name.empty?
   abort("rake aborted: '#{theme_path}' directory not found.") unless FileTest.directory?(theme_path)
   abort("rake aborted: '#{CONFIG['layouts']}' directory not found.") unless FileTest.directory?(CONFIG['layouts'])
-  
+
   Dir.glob("#{theme_path}/*") do |filename|
     next if non_layout_files.include?(File.basename(filename).downcase)
     puts "Generating '#{theme_name}' layout: #{File.basename(filename)}"
-    
+
     open(File.join(CONFIG['layouts'], File.basename(filename)), 'w') do |page|
       if File.basename(filename, ".html").downcase == "default"
         page.puts "---"
@@ -80,9 +80,9 @@ task :switch_theme do
         page.puts "---"
         page.puts "layout: default"
         page.puts "---"
-      end 
+      end
       page.puts "{% include JB/setup %}"
-      page.puts "{% include themes/#{theme_name}/#{File.basename(filename)} %}" 
+      page.puts "{% include themes/#{theme_name}/#{File.basename(filename)} %}"
     end
   end
 end # task :switch_theme
