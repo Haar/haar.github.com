@@ -2,7 +2,7 @@
 layout: post
 title: "Magical Trevor"
 category: personal
-tags: [Ruby, Life, Syntax Highlighting]
+tags: [Ruby, Git, Life, Syntax Highlighting]
 ---
 {% include JB/setup %}
 
