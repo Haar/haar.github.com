@@ -9,7 +9,9 @@ tagline: My thoughts, and the Zeros and Ones that power them.
 
 ## {{ post.title }}
 {{ post.date | date_to_string }}
-{{ post.content }}
+
+{{ post.content | strip_html | truncatewords: 85 }}
+
 <a class="btn" href="{{ post.url }}">Read More &raquo;</a>
 
 ---
