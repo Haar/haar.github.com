@@ -5,12 +5,12 @@ tagline: My thoughts, and the Zeros and Ones that power them.
 ---
 {% include JB/setup %}
 
-{% for post in site.posts limit:5 %}
+{% for post in site.posts limit:1 %}
 
 ## {{ post.title }}
 {{ post.date | date_to_string }}
 
-{{ post.content | strip_html | truncatewords: 114 }}
+{{ post.content }}
 
 <a class="btn" href="{{ post.url }}">Read More &raquo;</a>
 
