@@ -1,9 +1,29 @@
 <div class="page-header">
-  <h1>{{ page.title }} <small>{{ page.tagline }}</small></h1>
+  <h1>{{ page.title }} <small>{{ site.tagline }}</small></h1>
 </div>
 
 <div class="row">
-  <div class="span14">
+  <div class="span10">
     {{ content }}
+  </div>
+  <div class="span4">
+    <h4>Recent Posts</h4>
+    <ul class="posts">
+      {% for post in site.posts limit:10 %}
+        <li><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <h4>Ads</h4>
+    <script type="text/javascript">
+      <!--
+      google_ad_client = "ca-pub-6173952727533106";
+      /* Blog */
+      google_ad_slot = "0957795824";
+      google_ad_width = 160;
+      google_ad_height = 600;
+      //-->
+    </script>
+    <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+    </script>
   </div>
 </div>
