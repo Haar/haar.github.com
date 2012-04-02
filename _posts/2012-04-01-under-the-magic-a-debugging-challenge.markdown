@@ -20,6 +20,7 @@ First problem that occurred was due to the order of declarations within a Model;
     before_destroy :validate_property
 
     def validate_property
+      return false if scoped_associations.property?
       associations.each do |association|
         return false if association.property?
       end
